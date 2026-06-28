@@ -1,5 +1,57 @@
 
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM pg_catalog.pg_roles
+        WHERE rolname = 'consulta'
+    ) THEN
+        CREATE ROLE consulta WITH
+            LOGIN
+            PASSWORD 'consultabanco'
+            NOSUPERUSER
+            NOCREATEDB
+            NOCREATEROLE
+            NOINHERIT
+            NOREPLICATION;
+    ELSE
+        ALTER ROLE consulta WITH
+            LOGIN
+            PASSWORD 'consultabanco'
+            NOSUPERUSER
+            NOCREATEDB
+            NOCREATEROLE
+            NOINHERIT
+            NOREPLICATION;
+    END IF;
+END
+$$;
 
+
+CREATE DATABASE dbloja
+    WITH
+    ENCODING = 'UTF8'
+    TEMPLATE = template0
+    LC_COLLATE = 'pt_BR.UTF-8'
+    LC_CTYPE = 'pt_BR.UTF-8';
+
+\connect dbloja
+
+CREATE SCHEMA IF NOT EXISTS public;
+SET search_path TO public;
+
+GRANT CONNECT ON DATABASE dbloja TO consulta;
+GRANT USAGE ON SCHEMA public TO consulta;
+
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO consulta;
+
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO consulta;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA public
+GRANT SELECT ON TABLES TO consulta;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA public
+GRANT USAGE, SELECT ON SEQUENCES TO consulta;
 CREATE SCHEMA IF NOT EXISTS public;
 SET search_path TO public;
 
