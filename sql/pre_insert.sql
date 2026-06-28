@@ -1,5 +1,4 @@
 
-
 BEGIN;
 
 SET LOCAL search_path TO public;
@@ -752,6 +751,7 @@ SELECT
     p.valor_desconto,
     p.valor_taxa_plataforma,
     p.total,
+    p.data_pedido,
     s.id_anuncio,
     s.titulo,
     s.preco,
