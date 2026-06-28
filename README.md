@@ -1,4 +1,4 @@
-#  Marketplace Data Simulator — Power BI Portfolio Project
+#  Marketplace Simulador — Power BI - Projeto de Estudo
 
 Banco de dados simulado de um marketplace C2C (estilo OLX / Enjoei) criado para fins analíticos e desenvolvimento de habilidades em Business Intelligence.
 
